@@ -28,7 +28,7 @@
         <div class="challenges-list" ng-if="!loading && !error">
             <div class="challenge-item" ng-repeat="challenge in challenges">
                 <div class="challenge-icon">
-                    <img ng-src="{{getIconForChallenge(challenge)}}" alt="Ícone do desafio">
+                    <img ng-src="{{challenge.badge && challenge.badge.small && challenge.badge.small.url ? challenge.badge.small.url : (challenge.badgeUrl || 'https://cdn-icons-png.flaticon.com/512/1087/1087927.png')}}" alt="Ícone do desafio">
                 </div>
                 <div class="challenge-info">
                     <div class="challenge-title">{{challenge.challenge}}</div>
