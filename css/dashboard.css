@@ -33,7 +33,7 @@ body {
     background-color: var(--background);
     color: var(--text-primary);
     height: 100vh;
-    padding-bottom: 70px;
+    padding-bottom: 20px; /* Era 70px antes */
     position: relative;
 }
 
@@ -265,6 +265,7 @@ body {
     gap: 20px;
     grid-template-columns: 1fr;
     animation: fadeIn 0.6s ease-out 0.4s both;
+    margin-bottom: 20px;
 }
 
 .featured-activities,
