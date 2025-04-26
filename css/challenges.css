@@ -1,0 +1,368 @@
+/* Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Variáveis de cores */
+:root {
+  --primary: #7c4dff;
+  --primary-light: #b47cff;
+  --primary-dark: #3f1dcb;
+  --secondary: #ff5722;
+  --accent: #ffc107;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --text-light: #888;
+  --background: #f5f7fa;
+  --white: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --card-border: rgba(124, 77, 255, 0.1);
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --success: #4caf50;
+}
+
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  height: 100vh;
+  padding-bottom: 70px;
+  position: relative;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Cabeçalho */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-box {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--white);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(124, 77, 255, 0.4);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Loading e error */
+.loading, .error {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  box-shadow: 0 6px 12px var(--shadow);
+  margin: 20px 0;
+  animation: fadeIn 0.5s ease;
+}
+
+.loading::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(124, 77, 255, 0.2);
+  border-top-color: var(--primary);
+  margin: 0 auto 16px;
+  animation: spin 1s linear infinite;
+}
+
+.error {
+  border-left: 4px solid #f44336;
+  color: #f44336;
+}
+
+/* Lista de desafios */
+.challenges-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+.challenge-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: all 0.3s ease;
+  border: 1px solid var(--card-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+  border-radius: 4px 0 0 4px;
+  opacity: 0.7;
+}
+
+.challenge-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.challenge-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background-color: rgba(124, 77, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  flex-shrink: 0;
+}
+
+.challenge-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.challenge-item:hover .challenge-icon img {
+  transform: scale(1.1);
+}
+
+.challenge-info {
+  flex: 1;
+}
+
+.challenge-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 6px;
+}
+
+.challenge-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.challenge-points {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--secondary);
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: rgba(255, 87, 34, 0.1);
+  border-radius: 20px;
+}
+
+/* Barra de navegação */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--nav-bg);
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-light);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-icon {
+  font-size: 22px;
+  margin-bottom: 4px;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover .nav-icon {
+  transform: translateY(-3px);
+}
+
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 4px;
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
+.nav-item:hover {
+  color: var(--primary-light);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .header {
+    padding: 16px 0;
+    margin-bottom: 20px;
+  }
+  
+  .logo-box {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .challenge-item {
+    padding: 16px;
+  }
+  
+  .challenge-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .challenge-title {
+    font-size: 16px;
+  }
+  
+  .challenge-description {
+    font-size: 13px;
+  }
+  
+  .challenge-points {
+    font-size: 14px;
+  }
+}
+
+/* Efeitos e animações adicionais */
+.challenges-list .challenge-item:nth-child(odd) {
+  animation: fadeInLeft 0.6s ease both;
+}
+
+.challenges-list .challenge-item:nth-child(even) {
+  animation: fadeInRight 0.6s ease both;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Adicionar delay às animações para efeito cascata */
+.challenges-list .challenge-item:nth-child(1) { animation-delay: 0.1s; }
+.challenges-list .challenge-item:nth-child(2) { animation-delay: 0.2s; }
+.challenges-list .challenge-item:nth-child(3) { animation-delay: 0.3s; }
+.challenges-list .challenge-item:nth-child(4) { animation-delay: 0.4s; }
+.challenges-list .challenge-item:nth-child(5) { animation-delay: 0.5s; }
+.challenges-list .challenge-item:nth-child(6) { animation-delay: 0.6s; }
+.challenges-list .challenge-item:nth-child(7) { animation-delay: 0.7s; }
+.challenges-list .challenge-item:nth-child(8) { animation-delay: 0.8s; }

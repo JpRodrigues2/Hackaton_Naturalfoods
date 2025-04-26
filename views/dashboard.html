@@ -1,0 +1,32 @@
+<!-- views/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en" ng-app="naturalFoodsApp" ng-controller="DashboardController">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="../js/controllers/DashboardController.js"></script>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <div class="player-info">
+      <img ng-src="{{player.image.medium.url}}" alt="Foto do jogador" class="player-image">
+      <h1 class="player-name">{{player.name}}</h1>
+      <div class="player-coins">
+        <span class="coin-icon">&#x1F4B0;</span>
+        <span class="coin-amount">{{player.point_categories.moedas}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-menu">
+    <a href="dashboard.html" class="menu-item active">Home</a>
+    <a href="challenges.html" class="menu-item">Desafios</a>
+    <a href="ranking.html" class="menu-item">Ranking</a>
+    <a href="login.html" class="menu-item" ng-click="logout()">Logout</a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="rankingApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking de Jogadores</title>
+    <link rel="stylesheet" href="../css/ranking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body ng-controller="RankingController as ctrl">
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-box">R</div>
+                <h1 class="title">Ranking</h1>
+            </div>
+        </header>
+
+        <!-- Pódio -->
+        <section class="top-leaders" ng-if="ctrl.players.length > 0">
+            <div class="podium">
+                <!-- Segundo lugar -->
+                <div class="podium-item second" ng-if="ctrl.players[1]">
+                    <div class="medal">🥈</div>
+                    <div class="avatar">
+                        <span class="position">2</span>
+                    </div>
+                    <div class="name">{{ctrl.players[1].name}}</div>
+                    <div class="score">{{ctrl.players[1].score}}</div>
+                </div>
+
+                <!-- Primeiro lugar -->
+                <div class="podium-item first" ng-if="ctrl.players[0]">
+                    <div class="medal">🥇</div>
+                    <div class="avatar">
+                        <span class="position">1</span>
+                    </div>
+                    <div class="name">{{ctrl.players[0].name}}</div>
+                    <div class="score">{{ctrl.players[0].score}}</div>
+                </div>
+
+                <!-- Terceiro lugar -->
+                <div class="podium-item third" ng-if="ctrl.players[2]">
+                    <div class="medal">🥉</div>
+                    <div class="avatar">
+                        <span class="position">3</span>
+                    </div>
+                    <div class="name">{{ctrl.players[2].name}}</div>
+                    <div class="score">{{ctrl.players[2].score}}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lista de ranking -->
+        <section class="ranking-list" ng-if="ctrl.players.length > 0">
+            <div class="ranking-header">
+                <div class="rank-col">#</div>
+                <div class="user-col">Jogador</div>
+                <div class="score-col">Pontos</div>
+            </div>
+
+            <div class="ranking-item" 
+                 ng-repeat="player in ctrl.players" 
+                 ng-class="{'top-three': $index < 3, 'current-user': player.isCurrentUser}">
+                <div class="rank-col">{{$index + 1}}</div>
+                <div class="user-col">
+                    <div class="user-avatar">
+                        <!-- Imagem do jogador -->
+                    </div>
+                    <div class="user-name">{{player.name}}</div>
+                </div>
+                <div class="score-col">{{player.score}}</div>
+            </div>
+        </section>
+
+        <!-- Mensagens de estado -->
+        <div class="loading" ng-show="ctrl.loading">
+            Carregando ranking...
+        </div>
+
+        <div class="error" ng-show="ctrl.error">
+            Ocorreu um erro ao carregar o ranking. Tente novamente mais tarde.
+        </div>
+
+        <div class="no-data" ng-if="!ctrl.loading && !ctrl.error && ctrl.players.length === 0">
+            Nenhum jogador encontrado no ranking.
+        </div>
+    </div>
+
+    <!-- Barra de navegação -->
+    <nav class="navbar">
+        <div class="nav-item">
+            <i class="fas fa-home nav-icon"></i>
+            <span>Início</span>
+        </div>
+        <div class="nav-item active">
+            <i class="fas fa-trophy nav-icon"></i>
+            <span>Ranking</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-user nav-icon"></i>
+            <span>Perfil</span>
+        </div>
+    </nav>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/controllers/RankingController.js"></script>
+</body>
+</html>
