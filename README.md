@@ -41,5 +41,5 @@ Welcome to the **CodeHackers** project, developed for the **Natural Foods Retail
 ## 🔌 Integrations  
 ```mermaid
 graph LR
-    A[System] --> B(MS Dynamics)
-    A --> Instagram
+    A[System] --> B(Instagram)
+
