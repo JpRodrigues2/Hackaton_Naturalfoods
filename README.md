@@ -42,7 +42,4 @@ Welcome to the **CodeHackers** project, developed for the **Natural Foods Retail
 ```mermaid
 graph LR
     A[System] --> B(MS Dynamics)
-    A --> C(MS Forms)
-    A --> D(Docebo/ART)
-    A --> E(Higher Logic)
-    A --> F(Optional: Social Media)
+    A --> Instagram
