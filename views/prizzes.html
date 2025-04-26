@@ -15,16 +15,15 @@
 <body class="ranking-body" ng-controller="PrizzesController">
     <div class="container">
         <div class="header">
-            <button class="back-button" ng-click="navigateTo('dashboard.html')">&#10094;</button>
             <div class="logo" style="background:transparent;box-shadow:none;text-align:center;">
-                <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
-                <div class="logo-underline"></div>
-                <div class="title">store</div>
-            </div>
-            <div class="language-selector">
-                <button ng-click="changeLanguage('en')" ng-class="{'active': currentLanguage === 'en'}">EN</button>
-                <button ng-click="changeLanguage('es')" ng-class="{'active': currentLanguage === 'es'}">ES</button>
-            </div>
+    <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
+    <div class="logo-underline"></div>
+    <div class="title">store</div>
+</div>
+<div class="language-selector" style="text-align:right; margin-bottom: 0; margin-top: 8px;">
+    <button ng-click="changeLanguage('en')" ng-class="{'active': currentLanguage === 'en'}">EN</button>
+    <button ng-click="changeLanguage('es')" ng-class="{'active': currentLanguage === 'es'}">ES</button>
+</div>
         </div>
 
         <div class="section-title">{{'AVAILABLE_REWARDS' | translate}}</div>
