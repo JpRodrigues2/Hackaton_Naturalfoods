@@ -29,7 +29,23 @@
                 'COOKING_WORKSHOP_DESC': 'Learn healthy recipes with our nutritionist',
                 'ORGANIC_FAIR': 'Organic Products Fair',
                 'ORGANIC_FAIR_DESC': 'Fresh products directly from local producers',
-                'POINTS': 'points'
+                'POINTS': 'points',
+                'COIN': 'Coin',
+                'AVAILABLE_REWARDS': 'Available Rewards',
+                'REDEEMED_REWARDS': 'Redeemed Rewards',
+                'LOADING_ITEMS': 'Loading store items...',
+                'PURCHASE_SUCCESS': 'Item successfully purchased!',
+                'NO_REDEEMED_ITEMS': 'You haven\'t redeemed any items yet.',
+                'CONFIRM_PURCHASE': 'Confirm Purchase',
+                'PURCHASE_CONFIRMATION_MESSAGE': 'Do you really want to purchase "{{itemName}}" for {{price}} coins?',
+                'CANCEL': 'Cancel',
+                'CONFIRM': 'Confirm',
+                'PROCESSING': 'Processing...',
+                'BUY': 'BUY',
+                'NO_ITEMS_AVAILABLE': 'No items available in the store.',
+                'NOT_ENOUGH_COINS': 'You don\'t have enough coins to purchase this item.',
+                'PURCHASE_ERROR': 'Error processing purchase',
+                'STORE_LOAD_ERROR': 'Error loading store items. Please try again later.'
             });
             
             // Spanish translations
@@ -57,7 +73,23 @@
                 'COOKING_WORKSHOP_DESC': 'Aprende recetas saludables con nuestra nutricionista',
                 'ORGANIC_FAIR': 'Feria de Productos Orgánicos',
                 'ORGANIC_FAIR_DESC': 'Productos frescos directamente de productores locales',
-                'POINTS': 'puntos'
+                'POINTS': 'puntos',
+                'COIN': 'Moneda',
+                'AVAILABLE_REWARDS': 'Recompensas Disponibles',
+                'REDEEMED_REWARDS': 'Recompensas Canjeadas',
+                'LOADING_ITEMS': 'Cargando artículos de la tienda...',
+                'PURCHASE_SUCCESS': '¡Artículo comprado con éxito!',
+                'NO_REDEEMED_ITEMS': 'Aún no has canjeado ningún artículo.',
+                'CONFIRM_PURCHASE': 'Confirmar Compra',
+                'PURCHASE_CONFIRMATION_MESSAGE': '¿Realmente deseas comprar "{{itemName}}" por {{price}} monedas?',
+                'CANCEL': 'Cancelar',
+                'CONFIRM': 'Confirmar',
+                'PROCESSING': 'Procesando...',
+                'BUY': 'COMPRAR',
+                'NO_ITEMS_AVAILABLE': 'No hay artículos disponibles en la tienda.',
+                'NOT_ENOUGH_COINS': 'No tienes suficientes monedas para comprar este artículo.',
+                'PURCHASE_ERROR': 'Error al procesar la compra',
+                'STORE_LOAD_ERROR': 'Error al cargar los artículos de la tienda. Por favor, inténtelo de nuevo más tarde.'
             });
             
             // Set preferred language

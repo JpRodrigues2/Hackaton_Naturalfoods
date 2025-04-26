@@ -6,13 +6,16 @@
     <title>Desafios - Natural Foods</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
     <script src="../js/controllers/DesafiosController.js"></script>
+    <link rel="stylesheet" href="../css/ranking.css">
     <link rel="stylesheet" href="../css/challenges.css">
 </head>
 <body ng-controller="DesafiosController">
     <div class="container">
         <div class="header">
-            <div class="logo">
-                <div class="logo-box">//</div>
+            <div class="logo" style="background:transparent;box-shadow:none;text-align:center;">
+                <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
+                
+                <div class="logo-underline"></div>
                 <div class="title">challenges</div>
             </div>
         </div>
@@ -51,7 +54,7 @@
                 <span class="nav-icon">🏆</span>
                 Ranking
             </div>
-            <div class="nav-item" ng-class="{'active': currentPage === 'prizes.html'}" ng-click="navigateTo('Store.html')">
+            <div class="nav-item" ng-class="{'active': currentPage === 'prizzes.html'}" ng-click="navigateTo('prizzes.html')">
                 <span class="nav-icon">🎁</span>
                 Store
             </div>

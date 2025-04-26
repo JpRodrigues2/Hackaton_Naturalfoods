@@ -1,42 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br" ng-app="literalCafeApp">
+<html lang="{{currentLanguage}}" ng-app="naturalFoodsApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Natural Foods - loadStoreItems</title>
+    <title>Natural Foods - {{'STORE' | translate}}</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.19.0/angular-translate.min.js"></script>
+    <link rel="stylesheet" href="../css/ranking.css">
     <link rel="stylesheet" href="../css/prizzes.css">
+    <script src="../js/app.js"></script>
+    <script src="../js/translations.js"></script>
     <script src="../js/controllers/prizzesController.js"></script>
 </head>
-<body ng-controller="StoreController">
-    <div class="app-container">
-        <header>
-            <button class="back-button" ng-click="navigateBack()">&#10094;</button>
-            <div class="logo-box"><img src="/public/COIN.png" alt="Moeda" style="width:28px;height:28px;vertical-align:middle;"></div> <br>
-            <h1 class="logo"> Prêmios</h1>
-        </header>
-
-        <div class="wallet">
-            <img src="/public/COIN.png" alt="Moeda" class="coin-image">
-            <span>{{userCoins}}</span>
+<body class="ranking-body" ng-controller="PrizzesController">
+    <div class="container">
+        <div class="header">
+            <button class="back-button" ng-click="navigateTo('dashboard.html')">&#10094;</button>
+            <div class="logo" style="background:transparent;box-shadow:none;text-align:center;">
+                <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
+                <div class="logo-underline"></div>
+                <div class="title">store</div>
+            </div>
+            <div class="language-selector">
+                <button ng-click="changeLanguage('en')" ng-class="{'active': currentLanguage === 'en'}">EN</button>
+                <button ng-click="changeLanguage('es')" ng-class="{'active': currentLanguage === 'es'}">ES</button>
+            </div>
         </div>
 
-        <div class="section-title">Recompensas Disponíveis</div>
+        <div class="section-title">{{'AVAILABLE_REWARDS' | translate}}</div>
         
-        <div class="loading" ng-if="loading">Carregando itens da loja...</div>
+        <div class="loading" ng-if="loading">{{'LOADING_ITEMS' | translate}}</div>
         <div class="error-message" ng-if="error">{{errorMessage}}</div>
-        <div class="success-message" ng-if="purchaseSuccess">Item adquirido com sucesso!</div>
+        <div class="success-message" ng-if="purchaseSuccess">{{'PURCHASE_SUCCESS' | translate}}</div>
 
         <div class="product-list" ng-if="!loading && !error">
             <div class="product-card" ng-repeat="item in availableItems">
-                <img class="product-image" ng-src="{{item.image.medium.url}}" alt="{{item.name}}" onerror="this.src='/api/placeholder/120/120'">
+                <img class="product-image" ng-src="{{item.image.medium.url}}" alt="{{item.name}}" onerror="this.src='../public/COIN.png'">
                 <div class="product-info">
                     <div>
                         <h3 class="product-name">{{item.name}}</h3>
                         <p class="product-description">{{item.description}}</p>
                     </div>
                     <div class="product-price">
-                        <img src="/public/COIN.png" alt="Moeda" class="coin-image-small">
+                        <img src="../public/COIN.png" alt="Moeda" class="coin-image-small">
                         <span>{{getPrice(item)}}</span>
                         <button class="buy-button" ng-click="confirmPurchase(item)" ng-disabled="userCoins < getPrice(item) || processingPurchase">COMPRAR</button>
                     </div>
@@ -44,15 +50,53 @@
             </div>
         </div>
 
-        <div class="section-title saved-section">Recompensas Resgatadas</div>
+        <div class="section-title saved-section">{{'REDEEMED_REWARDS' | translate}}</div>
         <div ng-if="!purchasedItems.length" style="padding: 15px; color: #666; text-align: center;">
-            Você ainda não resgatou nenhum item.
+            {{'NO_REDEEMED_ITEMS' | translate}}
         </div>
         <div class="saved-product" ng-repeat="item in purchasedItems">
-            <img class="saved-product-image" ng-src="{{item.image}}" alt="{{item.name}}" onerror="this.src='/api/placeholder/50/50'">
+            <img class="saved-product-image" ng-src="{{item.image}}" alt="{{item.name}}" onerror="this.src='../public/COIN.png'">
             <span class="saved-product-name">{{item.name}}</span>
             <span class="saved-icon">&#8942;</span>
         </div>
+
+        <div class="navbar">
+            <div class="nav-item" ng-class="{'active': currentPage === 'dashboard.html'}" ng-click="navigateTo('dashboard.html')">
+                <span class="nav-icon">📊</span>
+                {{'HOME' | translate}}
+            </div>
+            <div class="nav-item" ng-class="{'active': currentPage === 'challenges.html'}" ng-click="navigateTo('challenges.html')">
+                <span class="nav-icon">🎯</span>
+                {{'CHALLENGES' | translate}}
+            </div>
+            <div class="nav-item" ng-class="{'active': currentPage === 'ranking.html'}" ng-click="navigateTo('ranking.html')">
+                <span class="nav-icon">🏆</span>
+                {{'RANKING' | translate}}
+            </div>
+            <div class="nav-item" ng-class="{'active': currentPage === 'prizzes.html'}" ng-click="navigateTo('prizzes.html')">
+                <span class="nav-icon">🎁</span>
+                {{'STORE' | translate}}
+            </div>
+            <div class="nav-item" ng-click="logout()">
+                <span class="nav-icon">🚪</span>
+                {{'LOGOUT' | translate}}
+            </div>
+        </div>
+    <!-- Modal de confirmação de compra -->
+    <div class="modal" ng-if="showPurchaseModal">
+        <div class="modal-content">
+            <h3 class="modal-title">{{'CONFIRM_PURCHASE' | translate}}</h3>
+            <p class="modal-message">
+                {{'PURCHASE_CONFIRMATION_MESSAGE' | translate:{itemName: selectedItem.name, price: getPrice(selectedItem)} }}
+            </p>
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-secondary" ng-click="cancelPurchase()">{{'CANCEL' | translate}}</button>
+                <button class="modal-button modal-button-primary" ng-click="purchaseItem()" ng-disabled="processingPurchase">
+                    {{processingPurchase ? ('PROCESSING' | translate) : ('CONFIRM' | translate)}}
+                </button>
+            </div>
+        </div>
+    </div>
 
         <div class="navbar">
             <div class="nav-item" ng-class="{'active': currentPage === 'status.html'}" ng-click="navigateTo('dashboard.html')">
@@ -76,202 +120,5 @@
                 logout
             </div>
         </div>
-    </div>
-
-    <!-- Modal de confirmação de compra -->
-    <div class="modal" ng-if="showPurchaseModal">
-        <div class="modal-content">
-            <h3 class="modal-title">Confirmar Compra</h3>
-            <p class="modal-message">
-                Deseja realmente adquirir "{{selectedItem.name}}" por {{getPrice(selectedItem)}} moedas?
-            </p>
-            <div class="modal-buttons">
-                <button class="modal-button modal-button-secondary" ng-click="cancelPurchase()">Cancelar</button>
-                <button class="modal-button modal-button-primary" ng-click="purchaseItem()" ng-disabled="processingPurchase">
-                    {{processingPurchase ? 'Processando...' : 'Confirmar'}}
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        var app = angular.module('literalCafeApp', []);
-        
-        app.controller('StoreController', function($scope, $http) {
-            // Define a página atual com base no caminho do URL
-            $scope.currentPage = window.location.pathname.split('/').pop();
-
-            // Função para navegação
-            $scope.navigateTo = function(page) {
-                window.location.href = page;
-            };
-
-            // Dados do usuário
-            $scope.playerName = "joaopedro"; // Nome do jogador para a API
-            $scope.userCoins = 200;      // Quantidade de moedas do jogador
-            
-            // Itens disponíveis da API
-            $scope.availableItems = [];
-            
-            // Itens já comprados/resgatados
-            $scope.purchasedItems = [];
-            
-            // Estados de UI
-            $scope.loading = true;
-            $scope.error = false;
-            $scope.errorMessage = "";
-            $scope.showPurchaseModal = false;
-            $scope.selectedItem = null;
-            $scope.processingPurchase = false;
-            $scope.purchaseSuccess = false;
-            
-            // Token de autorização para a API (dinâmico do localStorage)
-            const authToken = 'Bearer ' + (localStorage.getItem('token') || '');
-            
-            // Função para obter o preço do item
-            $scope.getPrice = function(item) {
-                // Tenta pegar o preço do item em moedas ou coins
-                if (item && item.requires && Array.isArray(item.requires)) {
-                    for (var i = 0; i < item.requires.length; i++) {
-                        var req = item.requires[i];
-                        var itemName = req.item ? req.item.toLowerCase() : '';
-                        var currencyName = req.currency ? req.currency.toLowerCase() : '';
-                        if (itemName === 'moedas' || itemName === 'coins' || currencyName === 'moedas' || currencyName === 'coins') {
-                            return req.total;
-                        }
-                    }
-                }
-                // Se não encontrar, retorna null para exibir '-'
-                return null;
-            };
-            
-            // Exibir modal de confirmação de compra
-            $scope.confirmPurchase = function(item) {
-                if ($scope.userCoins < $scope.getPrice(item)) {
-                    alert("Você não possui moedas suficientes para adquirir este item.");
-                    return;
-                }
-                
-                $scope.selectedItem = item;
-                $scope.showPurchaseModal = true;
-            };
-            
-            // Cancelar a compra
-            $scope.cancelPurchase = function() {
-                $scope.showPurchaseModal = false;
-                $scope.selectedItem = null;
-            };
-            
-            // Realizar a compra do item
-            $scope.purchaseItem = function() {
-                if (!$scope.selectedItem) return;
-                
-                $scope.processingPurchase = true;
-                
-                var reqData = {
-                    method: 'POST',
-                    url: 'https://service2.funifier.com/v3/virtualgoods/purchase',
-                    headers: {
-                        "Authorization": authToken,
-                        "Content-Type": "application/json"
-                    },
-                    data: {
-                        "player": $scope.playerName,
-                        "item": $scope.selectedItem._id,
-                        "total": 1
-                    }
-                };
-                
-                $http(reqData).then(
-                    function(response) {
-                        console.log('Compra realizada com sucesso:', response.data);
-                        
-                        // Atualiza o saldo de moedas baseado na resposta
-                        if (response.data && response.data.achievements) {
-                            for (var i = 0; i < response.data.achievements.length; i++) {
-                                var achievement = response.data.achievements[i];
-                                if (achievement.item === "moedas" && achievement.type === 0) {
-                                    // O valor retornado é negativo pois é um débito
-                                    $scope.userCoins += achievement.total;
-                                }
-                            }
-                        }
-                        
-                        // Adiciona o item à lista de comprados
-                        $scope.purchasedItems.push({
-                            name: $scope.selectedItem.name,
-                            image: $scope.selectedItem.image.medium.url,
-                            id: $scope.selectedItem._id
-                        });
-                        
-                        // Exibe mensagem de sucesso
-                        $scope.purchaseSuccess = true;
-                        setTimeout(function() {
-                            $scope.$apply(function() {
-                                $scope.purchaseSuccess = false;
-                            });
-                        }, 3000);
-                        
-                        // Fecha o modal
-                        $scope.showPurchaseModal = false;
-                        $scope.selectedItem = null;
-                        $scope.processingPurchase = false;
-                    },
-                    function(error) {
-                        console.error('Erro ao realizar a compra:', error);
-                        alert("Erro ao processar a compra. Por favor, tente novamente.");
-                        $scope.showPurchaseModal = false;
-                        $scope.processingPurchase = false;
-                    }
-                );
-            };
-            
-            // Carregar dados da API de itens disponíveis
-            $scope.loadStoreItems = function() {
-                $scope.loading = true;
-                $scope.error = false;
-                
-                var req = {
-                    method: 'GET',
-                    url: 'https://service2.funifier.com/v3/virtualgoods/item',
-                    headers: {
-                        "Authorization": authToken,
-                        "Content-Type": "application/json"
-                    }
-                };
-                
-                $http(req).then(
-                    function(response) {
-                        $scope.loading = false;
-                        if (response.data && response.data.length > 0) {
-                            $scope.availableItems = response.data;
-                            console.log('Itens carregados com sucesso', $scope.availableItems);
-                        } else {
-                            $scope.error = true;
-                            $scope.errorMessage = "Nenhum item disponível na loja.";
-                        }
-                    },
-                    function(error) {
-                        $scope.loading = false;
-                        $scope.error = true;
-                        $scope.errorMessage = "Erro ao carregar itens da loja. Por favor, tente novamente mais tarde.";
-                        console.error('Erro ao carregar itens da loja:', error);
-                    }
-                );
-            };
-            
-            // Função para carregar os itens já adquiridos pelo jogador
-            // Esta é uma simulação, mas idealmente buscaria da API
-            $scope.loadPurchasedItems = function() {
-                // Em uma implementação real, você faria uma chamada à API para buscar os itens já adquiridos
-                // Por enquanto, apenas inicializamos com uma lista vazia que será preenchida conforme o jogador faz compras
-                $scope.purchasedItems = [];
-            };
-            
-            // Inicializa a loja
-            $scope.loadStoreItems();
-            $scope.loadPurchasedItems();
-        });
-    </script>
 </body>
 </html>

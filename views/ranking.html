@@ -1,110 +1,142 @@
 <!DOCTYPE html>
-<html ng-app="rankingApp">
+<html lang="pt-br" ng-app="app">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking de Jogadores</title>
-    <link rel="stylesheet" href="../css/ranking.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <title>Ranking | Natural Foods</title>
+  <link rel="stylesheet" href="../css/ranking.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body ng-controller="RankingController as ctrl">
-    <div class="container">
-        <!-- Cabeçalho -->
-        <header class="header">
-            <div class="logo">
-                <div class="logo-box">R</div>
-                <h1 class="title">Ranking</h1>
-            </div>
-        </header>
+<body ng-controller="RankingController">
 
-        <!-- Pódio -->
-        <section class="top-leaders" ng-if="ctrl.players.length > 0">
-            <div class="podium">
-                <!-- Segundo lugar -->
-                <div class="podium-item second" ng-if="ctrl.players[1]">
-                    <div class="medal">🥈</div>
-                    <div class="avatar">
-                        <span class="position">2</span>
-                    </div>
-                    <div class="name">{{ctrl.players[1].name}}</div>
-                    <div class="score">{{ctrl.players[1].score}}</div>
-                </div>
-
-                <!-- Primeiro lugar -->
-                <div class="podium-item first" ng-if="ctrl.players[0]">
-                    <div class="medal">🥇</div>
-                    <div class="avatar">
-                        <span class="position">1</span>
-                    </div>
-                    <div class="name">{{ctrl.players[0].name}}</div>
-                    <div class="score">{{ctrl.players[0].score}}</div>
-                </div>
-
-                <!-- Terceiro lugar -->
-                <div class="podium-item third" ng-if="ctrl.players[2]">
-                    <div class="medal">🥉</div>
-                    <div class="avatar">
-                        <span class="position">3</span>
-                    </div>
-                    <div class="name">{{ctrl.players[2].name}}</div>
-                    <div class="score">{{ctrl.players[2].score}}</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Lista de ranking -->
-        <section class="ranking-list" ng-if="ctrl.players.length > 0">
-            <div class="ranking-header">
-                <div class="rank-col">#</div>
-                <div class="user-col">Jogador</div>
-                <div class="score-col">Pontos</div>
-            </div>
-
-            <div class="ranking-item" 
-                 ng-repeat="player in ctrl.players" 
-                 ng-class="{'top-three': $index < 3, 'current-user': player.isCurrentUser}">
-                <div class="rank-col">{{$index + 1}}</div>
-                <div class="user-col">
-                    <div class="user-avatar">
-                        <!-- Imagem do jogador -->
-                    </div>
-                    <div class="user-name">{{player.name}}</div>
-                </div>
-                <div class="score-col">{{player.score}}</div>
-            </div>
-        </section>
-
-        <!-- Mensagens de estado -->
-        <div class="loading" ng-show="ctrl.loading">
-            Carregando ranking...
-        </div>
-
-        <div class="error" ng-show="ctrl.error">
-            Ocorreu um erro ao carregar o ranking. Tente novamente mais tarde.
-        </div>
-
-        <div class="no-data" ng-if="!ctrl.loading && !ctrl.error && ctrl.players.length === 0">
-            Nenhum jogador encontrado no ranking.
-        </div>
+  <div class="container">
+    <div class="header">
+      <div class="logo" style="background:transparent;box-shadow:none;">
+        <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
+        
+        <div class="logo-underline"></div>
+        <div class="title">ranking</div>
+      </div>
     </div>
 
-    <!-- Barra de navegação -->
-    <nav class="navbar">
-        <div class="nav-item">
-            <i class="fas fa-home nav-icon"></i>
-            <span>Início</span>
-        </div>
-        <div class="nav-item active">
-            <i class="fas fa-trophy nav-icon"></i>
-            <span>Ranking</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-user nav-icon"></i>
-            <span>Perfil</span>
-        </div>
-    </nav>
+    <div class="loading" ng-if="loading">
+      <i class="fas fa-circle-notch fa-spin"></i>
+      Carregando ranking...
+    </div>
+    
+    <div class="error" ng-if="error">
+      <i class="fas fa-exclamation-triangle"></i>
+      Ocorreu um erro ao carregar o ranking. Por favor, tente novamente.
+    </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="js/controllers/RankingController.js"></script>
+    <div ng-if="!loading && !error">
+      <!-- Podium for top 3 -->
+      <section class="top-leaders" ng-if="topThree.length > 0">
+  <div class="podium-new">
+    <!-- Segundo lugar -->
+    <div class="podium-col second" ng-if="topThree.length > 1">
+      <div class="podium-avatar-wrap">
+        <img class="podium-avatar" ng-src="{{topThree[1].image || '../public/COIN.png'}}" alt="{{topThree[1].name}}">
+        <span class="podium-medal medal-silver">🥈</span>
+      </div>
+      <div class="podium-name">{{topThree[1].name}}</div>
+      <div class="podium-xp">{{topThree[1].total}} XP</div>
+    </div>
+    <!-- Primeiro lugar -->
+    <div class="podium-col first" ng-if="topThree.length > 0">
+      <div class="podium-avatar-wrap">
+        <img class="podium-avatar" ng-src="{{topThree[0].image || '../public/COIN.png'}}" alt="{{topThree[0].name}}">
+        <span class="podium-medal medal-gold">🥇</span>
+      </div>
+      <div class="podium-name">{{topThree[0].name}}</div>
+      <div class="podium-xp">{{topThree[0].total}} XP</div>
+    </div>
+    <!-- Terceiro lugar -->
+    <div class="podium-col third" ng-if="topThree.length > 2">
+      <div class="podium-avatar-wrap">
+        <img class="podium-avatar" ng-src="{{topThree[2].image || '../public/COIN.png'}}" alt="{{topThree[2].name}}">
+        <span class="podium-medal medal-bronze">🥉</span>
+      </div>
+      <div class="podium-name">{{topThree[2].name}}</div>
+      <div class="podium-xp">{{topThree[2].total}} XP</div>
+    </div>
+  </div>
+</section>
+
+      <!-- Full Ranking List -->
+      <div class="ranking-list">
+        <div class="ranking-header">
+          <span style="width: 40px">Pos.</span>
+          <span style="flex: 1">Team</span>
+          <span style="min-width: 80px; text-align: right">XP Total</span>
+        </div>
+        
+        <div class="ranking-item" ng-repeat="team in teams" ng-class="{'top-three': team.position <= 3}">
+          <div class="rank-col">#{{team.position}}</div>
+          <div class="user-col">
+            <div class="user-avatar">
+              <img ng-src="{{team.image || '../public/COIN.png'}}" alt="{{team.name}}">
+            </div>
+            <div class="user-name">{{team.name}}</div>
+          </div>
+          <div class="score-col">{{team.total}} XP</div>
+        </div>
+        
+        <div class="no-data" ng-if="teams.length === 0">
+          <i class="fas fa-info-circle"></i>
+          Nenhuma equipe encontrada no ranking.
+        </div>
+      </div>
+    </div>
+
+    <!-- Standardized Navbar -->
+    <div class="navbar">
+      <div class="nav-item" ng-class="{'active': currentPage === 'dashboard.html'}" ng-click="navigateTo('dashboard.html')">
+        <i class="fas fa-home nav-icon"></i>
+        Home
+      </div>
+      <div class="nav-item" ng-class="{'active': currentPage === 'challenges.html'}" ng-click="navigateTo('challenges.html')">
+        <i class="fas fa-bullseye nav-icon"></i>
+        Desafios
+      </div>
+      <div class="nav-item" ng-class="{'active': currentPage === 'ranking.html'}" ng-click="navigateTo('ranking.html')">
+        <i class="fas fa-trophy nav-icon"></i>
+        Ranking
+      </div>
+      <div class="nav-item" ng-class="{'active': currentPage === 'prizzes.html'}" ng-click="navigateTo('prizzes.html')">
+        <i class="fas fa-gift nav-icon"></i>
+        Loja
+      </div>
+      <div class="nav-item" ng-click="logout()">
+        <i class="fas fa-sign-out-alt nav-icon"></i>
+        Sair
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <div class="nav-item" ng-class="{'active': currentPage === 'status.html'}" ng-click="navigateTo('dashboard.html')">
+      <span class="nav-icon">📊</span>
+      Home
+    </div>
+    <div class="nav-item" ng-class="{'active': currentPage === 'challenges.html'}" ng-click="navigateTo('challenges.html')">
+      <span class="nav-icon">🎯</span>
+      Challenges
+    </div>
+    <div class="nav-item" ng-class="{'active': currentPage === 'leaderboard.html'}" ng-click="navigateTo('ranking.html')">
+      <span class="nav-icon">🏆</span>
+      Ranking
+    </div>
+    <div class="nav-item" ng-class="{'active': currentPage === 'prizzes.html'}" ng-click="navigateTo('prizzes.html')">
+      <span class="nav-icon">🎁</span>
+      Store
+    </div>
+    <div class="nav-item" ng-click="logout()">
+      <span class="nav-icon">🚪</span>
+      logout
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="../js/controllers/rankingController.js"></script>
 </body>
 </html>
