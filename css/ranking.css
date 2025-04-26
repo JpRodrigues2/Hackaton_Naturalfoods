@@ -164,6 +164,85 @@ body {
   padding: 10px 0;
 }
 
+.podium-new {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+.podium-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 120px;
+}
+.podium-col.first { margin-bottom: 0; z-index:2; }
+.podium-col.second { margin-bottom: 24px; z-index:1; }
+.podium-col.third { margin-bottom: 12px; z-index:1; }
+.podium-avatar-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.podium-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+  object-fit: cover;
+}
+.podium-col.first .podium-avatar { width: 110px; height: 110px; border-color: #ffd700; }
+.podium-col.second .podium-avatar { width: 90px; height: 90px; border-color: #c0c0c0; }
+.podium-col.third .podium-avatar { width: 80px; height: 80px; border-color: #cd7f32; }
+.podium-medal {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18));
+}
+.medal-gold { color: #ffd700; }
+.medal-silver { color: #c0c0c0; }
+.medal-bronze { color: #cd7f32; }
+.podium-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 6px;
+  max-width: 120px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.podium-xp {
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(90deg, #6c63ff, #5e348b);
+  padding: 3px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+@media (max-width: 700px) {
+  .podium-new { gap: 12px; }
+  .podium-col { min-width: 80px; }
+  .podium-avatar { width: 60px; height: 60px; }
+  .podium-col.first .podium-avatar { width: 75px; height: 75px; }
+  .podium-col.second .podium-avatar { width: 60px; height: 60px; }
+  .podium-col.third .podium-avatar { width: 50px; height: 50px; }
+  .podium-medal { font-size: 1.2rem; top: -10px; }
+  .podium-name { font-size: 0.9rem; max-width: 80px; }
+  .podium-xp { font-size: 0.8rem; }
+}
+
+
 .podium {
   display: flex;
   justify-content: center;

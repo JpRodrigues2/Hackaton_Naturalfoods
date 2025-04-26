@@ -17,13 +17,15 @@
 }
 
 body {
-  font-family: 'Inter', Arial, sans-serif;
-  background: #f8f7fa;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
-.app-container {
+.container {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 16px;
@@ -86,7 +88,7 @@ body {
   margin: 0 24px;
 }
 .product-card {
-  background: #f3f0fa;
+  background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(124,77,255,0.07);
   display: flex;

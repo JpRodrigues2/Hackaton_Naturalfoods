@@ -6,27 +6,25 @@
     <title>Natural Foods - {{'STORE' | translate}}</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.19.0/angular-translate.min.js"></script>
+    <link rel="stylesheet" href="../css/ranking.css">
     <link rel="stylesheet" href="../css/prizzes.css">
     <script src="../js/app.js"></script>
     <script src="../js/translations.js"></script>
     <script src="../js/controllers/prizzesController.js"></script>
 </head>
-<body ng-controller="PrizzesController">
-    <div class="app-container">
-        <header>
+<body class="ranking-body" ng-controller="PrizzesController">
+    <div class="container">
+        <div class="header">
             <button class="back-button" ng-click="navigateTo('dashboard.html')">&#10094;</button>
-            <div class="logo-box"><img src="../public/COIN.png" alt="{{'COIN' | translate}}" style="width:28px;height:28px;vertical-align:middle;"></div> <br>
-            <h1 class="logo"> {{'STORE' | translate}}</h1>
-            
+            <div class="logo" style="background:transparent;box-shadow:none;text-align:center;">
+                <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
+                <div class="logo-underline"></div>
+                <div class="title">store</div>
+            </div>
             <div class="language-selector">
                 <button ng-click="changeLanguage('en')" ng-class="{'active': currentLanguage === 'en'}">EN</button>
                 <button ng-click="changeLanguage('es')" ng-class="{'active': currentLanguage === 'es'}">ES</button>
             </div>
-        </header>
-
-        <div class="wallet">
-            <img src="../public/COIN.png" alt="{{'COIN' | translate}}" class="coin-image">
-            <span>{{userCoins}}</span>
         </div>
 
         <div class="section-title">{{'AVAILABLE_REWARDS' | translate}}</div>
@@ -84,8 +82,6 @@
                 {{'LOGOUT' | translate}}
             </div>
         </div>
-    </div>
-
     <!-- Modal de confirmação de compra -->
     <div class="modal" ng-if="showPurchaseModal">
         <div class="modal-content">
@@ -101,5 +97,28 @@
             </div>
         </div>
     </div>
+
+        <div class="navbar">
+            <div class="nav-item" ng-class="{'active': currentPage === 'status.html'}" ng-click="navigateTo('dashboard.html')">
+                <span class="nav-icon">📊</span>
+                Home
+            </div>
+            <div class="nav-item" ng-class="{'active': currentPage === 'challenges.html'}" ng-click="navigateTo('challenges.html')">
+                <span class="nav-icon">🎯</span>
+                Challenges
+            </div>
+            <div class="nav-item" ng-class="{'active': currentPage === 'leaderboard.html'}" ng-click="navigateTo('ranking.html')">
+                <span class="nav-icon">🏆</span>
+                Ranking
+            </div>
+            <div class="nav-item" ng-class="{'active': currentPage === 'prizes.html'}" ng-click="navigateTo('Store.html')">
+                <span class="nav-icon">🎁</span>
+                Store
+            </div>
+            <div class="nav-item" ng-click="logout()">
+                <span class="nav-icon">🚪</span>
+                logout
+            </div>
+        </div>
 </body>
 </html>

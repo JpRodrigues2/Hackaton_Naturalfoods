@@ -33,8 +33,69 @@ body {
     background-color: var(--background);
     color: var(--text-primary);
     height: 100vh;
-    padding-bottom: 20px; /* Era 70px antes */
+    padding-bottom: 70px; /* igual challenges.css para navbar fixa embaixo */
     position: relative;
+}
+
+/* Barra de navegação igual challenges */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--nav-bg);
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-light);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-icon {
+  font-size: 22px;
+  margin-bottom: 4px;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover .nav-icon {
+  transform: translateY(-3px);
+}
+
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 4px;
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
+.nav-item:hover {
+  color: var(--primary-light);
 }
 
 /* Header - Com estilo semelhante ao ranking e challenges */

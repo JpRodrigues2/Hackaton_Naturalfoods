@@ -10,8 +10,10 @@
 
   <div class="container">
     <div class="header">
-      <div class="logo">
-        <div class="logo-box">//</div>
+      <div class="logo" style="background:transparent;box-shadow:none;">
+        <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
+        
+        <div class="logo-underline"></div>
         <div class="title">ranking</div>
       </div>
     </div>
@@ -29,47 +31,42 @@
     <div ng-if="!loading && !error">
       <!-- Podium for top 3 -->
       <section class="top-leaders" ng-if="topThree.length > 0">
-        <div class="podium">
-          <!-- Second Place -->
-          <div class="podium-item second" ng-if="topThree.length > 1">
-            <div class="medal">🥈</div>
-            <div class="avatar">
-              <img ng-src="{{topThree[1].image || '../public/COIN.png'}}" alt="{{topThree[1].name}}">
-              <div class="position">2</div>
-            </div>
-            <div class="name">{{topThree[1].name}}</div>
-            <div class="score">{{topThree[1].total}} XP</div>
-          </div>
-          
-          <!-- First Place -->
-          <div class="podium-item first" ng-if="topThree.length > 0">
-            <div class="medal">🥇</div>
-            <div class="avatar">
-              <img ng-src="{{topThree[0].image || '../public/COIN.png'}}" alt="{{topThree[0].name}}">
-              <div class="position">1</div>
-            </div>
-            <div class="name">{{topThree[0].name}}</div>
-            <div class="score">{{topThree[0].total}} XP</div>
-          </div>
-          
-          <!-- Third Place -->
-          <div class="podium-item third" ng-if="topThree.length > 2">
-            <div class="medal">🥉</div>
-            <div class="avatar">
-              <img ng-src="{{topThree[2].image || '../public/COIN.png'}}" alt="{{topThree[2].name}}">
-              <div class="position">3</div>
-            </div>
-            <div class="name">{{topThree[2].name}}</div>
-            <div class="score">{{topThree[2].total}} XP</div>
-          </div>
-        </div>
-      </section>
+  <div class="podium-new">
+    <!-- Segundo lugar -->
+    <div class="podium-col second" ng-if="topThree.length > 1">
+      <div class="podium-avatar-wrap">
+        <img class="podium-avatar" ng-src="{{topThree[1].image || '../public/COIN.png'}}" alt="{{topThree[1].name}}">
+        <span class="podium-medal medal-silver">🥈</span>
+      </div>
+      <div class="podium-name">{{topThree[1].name}}</div>
+      <div class="podium-xp">{{topThree[1].total}} XP</div>
+    </div>
+    <!-- Primeiro lugar -->
+    <div class="podium-col first" ng-if="topThree.length > 0">
+      <div class="podium-avatar-wrap">
+        <img class="podium-avatar" ng-src="{{topThree[0].image || '../public/COIN.png'}}" alt="{{topThree[0].name}}">
+        <span class="podium-medal medal-gold">🥇</span>
+      </div>
+      <div class="podium-name">{{topThree[0].name}}</div>
+      <div class="podium-xp">{{topThree[0].total}} XP</div>
+    </div>
+    <!-- Terceiro lugar -->
+    <div class="podium-col third" ng-if="topThree.length > 2">
+      <div class="podium-avatar-wrap">
+        <img class="podium-avatar" ng-src="{{topThree[2].image || '../public/COIN.png'}}" alt="{{topThree[2].name}}">
+        <span class="podium-medal medal-bronze">🥉</span>
+      </div>
+      <div class="podium-name">{{topThree[2].name}}</div>
+      <div class="podium-xp">{{topThree[2].total}} XP</div>
+    </div>
+  </div>
+</section>
 
       <!-- Full Ranking List -->
       <div class="ranking-list">
         <div class="ranking-header">
           <span style="width: 40px">Pos.</span>
-          <span style="flex: 1">Equipe</span>
+          <span style="flex: 1">Team</span>
           <span style="min-width: 80px; text-align: right">XP Total</span>
         </div>
         
@@ -113,6 +110,29 @@
         <i class="fas fa-sign-out-alt nav-icon"></i>
         Sair
       </div>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <div class="nav-item" ng-class="{'active': currentPage === 'status.html'}" ng-click="navigateTo('dashboard.html')">
+      <span class="nav-icon">📊</span>
+      Home
+    </div>
+    <div class="nav-item" ng-class="{'active': currentPage === 'challenges.html'}" ng-click="navigateTo('challenges.html')">
+      <span class="nav-icon">🎯</span>
+      Challenges
+    </div>
+    <div class="nav-item" ng-class="{'active': currentPage === 'leaderboard.html'}" ng-click="navigateTo('ranking.html')">
+      <span class="nav-icon">🏆</span>
+      Ranking
+    </div>
+    <div class="nav-item" ng-class="{'active': currentPage === 'prizzes.html'}" ng-click="navigateTo('prizzes.html')">
+      <span class="nav-icon">🎁</span>
+      Store
+    </div>
+    <div class="nav-item" ng-click="logout()">
+      <span class="nav-icon">🚪</span>
+      logout
     </div>
   </div>
 

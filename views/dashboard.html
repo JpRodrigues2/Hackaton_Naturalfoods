@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Natural Foods Retailers</title>
+    <link rel="stylesheet" href="../css/ranking.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
@@ -24,9 +25,9 @@
 </head>
 <body ng-controller="DashboardController as dashboard">
     <header class="main-header">
-        <div class="logo">
-            <img src="../public/COIN.png" alt="Natural Foods Retailers">
-        </div>
+        <div class="logo" style="background:transparent;box-shadow:none;text-align:center;">
+    <img src="../public/infra.png" alt="infra" class="logo-img" style="height:64px;background:transparent;box-shadow:none;"/>
+</div>
         <div class="language-selector">
             <button ng-click="changeLanguage('en')" ng-class="{'active': currentLanguage === 'en'}">EN</button>
             <button ng-click="changeLanguage('es')" ng-class="{'active': currentLanguage === 'es'}">ES</button>
@@ -111,5 +112,6 @@
             </div>
         </section>
     </main>
+        
 </body>
 </html>
