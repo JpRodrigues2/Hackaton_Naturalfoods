@@ -21,9 +21,13 @@ angular.module('meuApp', []) // Inicializa o app aqui porque o app.js está vazi
             function(response) {
                 console.log(response.data);
                 // Salva o token no localStorage
-                localStorage.setItem('token', response.data.access_token);
-                // Redireciona para a página de prêmios
-                window.location.href = "../views/prizzes.html"; 
+                localStorage.setItem('userToken', response.data.access_token);
+                
+                // IMPORTANTE: Salvar também o userId
+                localStorage.setItem('userId', $scope.username);
+                
+                // Redireciona para o Dashboard
+                window.location.href = "../views/dashboard.html"; 
             },
             function(error) {
                 console.error('Erro no login:', error);
