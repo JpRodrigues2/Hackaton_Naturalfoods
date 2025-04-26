@@ -55,17 +55,25 @@
         </div>
 
         <div class="navbar">
-            <div class="nav-item" ng-class="{'active': currentPage === 'status.html'}" ng-click="navigateTo('status.html')">
-                <span class="nav-icon">📊</span> Status
+            <div class="nav-item" ng-class="{'active': currentPage === 'status.html'}" ng-click="navigateTo('dashboard.html')">
+                <span class="nav-icon">📊</span>
+                Home
             </div>
             <div class="nav-item" ng-class="{'active': currentPage === 'challenges.html'}" ng-click="navigateTo('challenges.html')">
-                <span class="nav-icon">🎯</span> Desafios
+                <span class="nav-icon">🎯</span>
+                Challenges
             </div>
-            <div class="nav-item" ng-class="{'active': currentPage === 'leaderboard.html'}" ng-click="navigateTo('leaderboard.html')">
-                <span class="nav-icon">🏆</span> Ranking
+            <div class="nav-item" ng-class="{'active': currentPage === 'leaderboard.html'}" ng-click="navigateTo('ranking.html')">
+                <span class="nav-icon">🏆</span>
+                Ranking
             </div>
-            <div class="nav-item" ng-class="{'active': currentPage === 'prizes.html'}" ng-click="navigateTo('prizes.html')">
-                <span class="nav-icon">🎁</span> Prêmios
+            <div class="nav-item" ng-class="{'active': currentPage === 'prizes.html'}" ng-click="navigateTo('Store.html')">
+                <span class="nav-icon">🎁</span>
+                Store
+            </div>
+            <div class="nav-item" ng-click="logout()">
+                <span class="nav-icon">🚪</span>
+                logout
             </div>
         </div>
     </div>
