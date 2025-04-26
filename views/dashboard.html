@@ -1,32 +1,134 @@
-<!-- views/dashboard.html -->
 <!DOCTYPE html>
-<html lang="en" ng-app="naturalFoodsApp" ng-controller="DashboardController">
+<html lang="{{currentLanguage}}" ng-app="naturalFoodsApp">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../css/dashboard.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script src="../js/controllers/DashboardController.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Natural Foods Retailers</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.19.0/angular-translate.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/controllers/dashboardController.js"></script>
+    <script src="../js/services/dashboardService.js"></script>
+    <script>
+        // Verificar se o usuário está logado antes de carregar a página
+        window.onload = function() {
+            if (!localStorage.getItem('userId') || !localStorage.getItem('userToken')) {
+                console.error('Usuário não autenticado, redirecionando para login');
+                window.location.href = 'login.html';
+            }
+        };
+    </script>
 </head>
-<body>
+<body ng-controller="DashboardController as dashboard">
+    <header class="main-header">
+        <div class="logo">
+            <img src="../public/COIN.png" alt="Natural Foods Retailers">
+        </div>
+        <div class="language-selector">
+            <button ng-click="changeLanguage('en')" ng-class="{'active': currentLanguage === 'en'}">EN</button>
+            <button ng-click="changeLanguage('es')" ng-class="{'active': currentLanguage === 'es'}">ES</button>
+        </div>
+        <div class="avatar" ng-click="dashboard.toggleUserMenu()">
+            <img ng-src="{{dashboard.userData.image.small.url || '../public/XP.png'}}" alt="{{dashboard.userData.name}}">
+            <div class="user-menu" ng-show="dashboard.showUserMenu">
+                <ul>
+                    <li><i class="fas fa-user"></i> {{'PROFILE' | translate}}</li>
+                    <li><i class="fas fa-cog"></i> {{'SETTINGS' | translate}}</li>
+                    <li ng-click="dashboard.logout()"><i class="fas fa-sign-out-alt"></i> {{'LOGOUT' | translate}}</li>
+                </ul>
+            </div>
+        </div>
+    </header>
 
-  <div class="dashboard-container">
-    <div class="player-info">
-      <img ng-src="{{player.image.medium.url}}" alt="Foto do jogador" class="player-image">
-      <h1 class="player-name">{{player.name}}</h1>
-      <div class="player-coins">
-        <span class="coin-icon">&#x1F4B0;</span>
-        <span class="coin-amount">{{player.point_categories.moedas}}</span>
-      </div>
-    </div>
-  </div>
+    <main class="dashboard-content">
+        <section class="hero-section">
+            <h1 class="welcome-message">{{'HELLO' | translate}}, {{dashboard.userData.name}}!</h1>
+            <div class="points-display">
+                <h2>{{'CURRENT_POINTS' | translate}}</h2>
+                <div class="points-value">{{dashboard.userData.total_points}}</div>
+                <div class="points-details" ng-repeat="(category, points) in dashboard.userData.pointCategories">
+                    <span class="category">{{category}}:</span>
+                    <span class="value">{{points}}</span>
+                </div>
+            </div>
+        </section>
 
-  <div class="bottom-menu">
-    <a href="dashboard.html" class="menu-item active">Home</a>
-    <a href="challenges.html" class="menu-item">Desafios</a>
-    <a href="ranking.html" class="menu-item">Ranking</a>
-    <a href="login.html" class="menu-item" ng-click="logout()">Logout</a>
-  </div>
+        <section class="quick-actions">
+            <div class="action-item" ng-click="dashboard.navigateTo('challenges.html')">
+                <i class="fas fa-tasks"></i>
+                <span>{{'CHALLENGES' | translate}}</span>
+            </div>
+            <div class="action-item" ng-click="dashboard.navigateTo('store.html')">
+                <i class="fas fa-gift"></i>
+                <span>{{'STORE' | translate}}</span>
+            </div>
+            <div class="action-item" ng-click="dashboard.navigateTo('ranking.html')">
+                <i class="fas fa-trophy"></i>
+                <span>{{'RANKING' | translate}}</span>
+            </div>
+        </section>
 
+        <section class="highlights">
+            <div class="featured-activities">
+                <h2>{{'FEATURED_ACTIVITIES' | translate}}</h2>
+                <div class="activities-list" ng-show="dashboard.featuredActivities.length > 0">
+                    <div class="activity-card" ng-repeat="activity in dashboard.featuredActivities">
+                        <div class="activity-icon">
+                            <i class="{{activity.icon}}"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h3>{{dashboard.translateActivity(activity.title) | translate}}</h3>
+                            <p>{{dashboard.translateActivityDesc(activity.title) | translate}}</p>
+                            <div class="activity-points">+{{activity.points}} {{'POINTS' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="empty-state" ng-hide="dashboard.featuredActivities.length > 0">
+                    <p>{{'NO_ACTIVITIES' | translate}}</p>
+                </div>
+            </div>
+
+            <div class="upcoming-events">
+                <h2>{{'UPCOMING_EVENTS' | translate}}</h2>
+                <div class="events-list" ng-show="dashboard.upcomingEvents.length > 0">
+                    <div class="event-card" ng-repeat="event in dashboard.upcomingEvents">
+                        <div class="event-date">
+                            <span class="day">{{event.date.day}}</span>
+                            <span class="month">{{dashboard.translateMonth(event.date.month)}}</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>{{dashboard.translateEvent(event.title) | translate}}</h3>
+                            <p>{{dashboard.translateEventDesc(event.title) | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="empty-state" ng-hide="dashboard.upcomingEvents.length > 0">
+                    <p>{{'NO_EVENTS' | translate}}</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="mobile-navigation">
+        <div class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>{{'HOME' | translate}}</span>
+        </div>
+        <div class="nav-item" ng-click="dashboard.navigateTo('challenges.html')">
+            <i class="fas fa-tasks"></i>
+            <span>{{'CHALLENGES' | translate}}</span>
+        </div>
+        <div class="nav-item" ng-click="dashboard.navigateTo('ranking.html')">
+            <i class="fas fa-trophy"></i>
+            <span>{{'RANKING' | translate}}</span>
+        </div>
+        <div class="nav-item" ng-click="dashboard.navigateTo('store.html')">
+            <i class="fas fa-store"></i>
+            <span>{{'STORE' | translate}}</span>
+        </div>
+    </nav>
 </body>
 </html>
